@@ -1,7 +1,0 @@
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\Debug\CryptographyPlugin.dll
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\Debug\CryptographyPlugin.pdb
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\CryptographyPlugin\obj\Debug\CryptographyPlugin.csprojAssemblyReference.cache
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\CryptographyPlugin\obj\Debug\CryptographyPlugin.csproj.CoreCompileInputs.cache
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\CryptographyPlugin\obj\Debug\CryptographyPlugin.csproj.CopyComplete
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\CryptographyPlugin\obj\Debug\CryptographyPlugin.dll
-E:\Projects\CryptographyPlugin\WebAccess.Agent\NativeModules\DotNetCryptographyPlugin\CryptographyPlugin\obj\Debug\CryptographyPlugin.pdb
