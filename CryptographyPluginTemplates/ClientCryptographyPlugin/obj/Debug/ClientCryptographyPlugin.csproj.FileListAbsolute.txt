@@ -1,0 +1,16 @@
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\obj\Debug\ClientCryptographyPlugin.csproj.CoreCompileInputs.cache
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\bin\Debug\ClientCryptographyPlugin.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\bin\Debug\Sungero.Plugins.Sdk.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\obj\Debug\ClientCryptographyPlugin.csproj.CopyComplete
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\bin\Debug\ClientCryptographyPlugin.pdb
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\obj\Debug\ClientCryptographyPlugin.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\CryptographyPlugin\obj\Debug\ClientCryptographyPlugin.pdb
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\bin\Debug\ClientCryptographyPlugin.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\bin\Debug\ClientCryptographyPlugin.pdb
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\bin\Debug\Newtonsoft.Json.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\bin\Debug\Sungero.Plugins.Sdk.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\obj\Debug\ClientCryptographyPlugin.csproj.CoreCompileInputs.cache
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\obj\Debug\ClientCryptographyPlugin.csproj.CopyComplete
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\obj\Debug\ClientCryptographyPlugin.dll
+D:\Projects\SungeroPluginsSDK\Sungero.Plugins.Templates\CryptographyPluginTemplates\ClientCryptographyPlugin\obj\Debug\ClientCryptographyPlugin.pdb

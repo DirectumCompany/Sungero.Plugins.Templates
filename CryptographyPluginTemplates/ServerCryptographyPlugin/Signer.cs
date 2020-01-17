@@ -2,7 +2,7 @@
 using System;
 using System.Security.Cryptography.X509Certificates;
 
-namespace CryptographyPluginTemplate
+namespace CryptographyPlugin
 {
   /// <summary>
   /// Класс подписания по выбранному алгоритму.

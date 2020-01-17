@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace CryptographyPluginTemplate
+namespace CryptographyPlugin
 {
   /// <summary>
   /// Алгоритм хеширования.

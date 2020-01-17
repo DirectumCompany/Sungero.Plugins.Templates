@@ -1,0 +1,88 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.5": {
+      "Sungero.Plugins.Sdk/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Sungero.Plugins.Sdk.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Sungero.Plugins.Sdk.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Sungero.Plugins.Sdk/1.0.0": {
+      "sha512": "P1nx+SIfLXMScOmaR8aU9M4AGqkp1YlRKYtw4Exrrm6tHuMEr5DBlSpB+nU4opz9XROqk1tdDUdWsdWATW5llA==",
+      "type": "package",
+      "path": "sungero.plugins.sdk/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net45/Sungero.Plugins.Sdk.dll",
+        "lib/net45/Sungero.Plugins.Sdk.xml",
+        "lib/netcoreapp2.2/Sungero.Plugins.Sdk.dll",
+        "lib/netcoreapp2.2/Sungero.Plugins.Sdk.xml",
+        "sungero.plugins.sdk.1.0.0.nupkg.sha512",
+        "sungero.plugins.sdk.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.5": [
+      "Sungero.Plugins.Sdk >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\nikitin_aa\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Projects\\SungeroPluginsSDK\\Sungero.Plugins.Templates\\CryptographyPluginTemplates\\ServerCryptographyPlugin\\ServerCryptographyPlugin.csproj",
+      "projectName": "ServerCryptographyPlugin",
+      "projectPath": "D:\\Projects\\SungeroPluginsSDK\\Sungero.Plugins.Templates\\CryptographyPluginTemplates\\ServerCryptographyPlugin\\ServerCryptographyPlugin.csproj",
+      "packagesPath": "C:\\Users\\nikitin_aa\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\SungeroPluginsSDK\\Sungero.Plugins.Templates\\CryptographyPluginTemplates\\ServerCryptographyPlugin\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\nikitin_aa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net45"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net45": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net45": {
+        "dependencies": {
+          "Sungero.Plugins.Sdk": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          }
+        }
+      }
+    }
+  }
+}

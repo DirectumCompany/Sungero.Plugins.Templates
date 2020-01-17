@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCryptographyPlugin", "CryptographyPluginTemplate\ServerCryptographyPlugin.csproj", "{B43FC3A9-F07B-42C5-8DCC-0FBE27ED4988}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerCryptographyPlugin", "ServerCryptographyPlugin\ServerCryptographyPlugin.csproj", "{B43FC3A9-F07B-42C5-8DCC-0FBE27ED4988}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCryptographyPlugin", "CryptographyPlugin\ClientCryptographyPlugin.csproj", "{D11914C8-5F8C-4D13-9BFA-7AC8D3B2C567}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientCryptographyPlugin", "ClientCryptographyPlugin\ClientCryptographyPlugin.csproj", "{D11914C8-5F8C-4D13-9BFA-7AC8D3B2C567}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

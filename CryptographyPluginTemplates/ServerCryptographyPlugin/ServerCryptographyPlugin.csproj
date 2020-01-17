@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <RootNamespace>ServerCryptographyPlugin</RootNamespace>
+    <AssemblyName>ServerCryptographyPlugin</AssemblyName>
+    <TargetFramework>net45</TargetFramework>
+    <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Plugin.targets">
+      <Link>Plugin.targets</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
+  </ItemGroup>
+  <Import Project="..\Plugin.targets" />
+</Project>
