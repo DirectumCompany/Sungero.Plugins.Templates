@@ -6,7 +6,9 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Library
 {
-  /// <summary> Класс подписателя. </summary>
+  /// <summary>
+  /// Класс подписания по выбранному алгоритму.
+  /// </summary>
   public static class Signer
   {
     private const string Sha512Oid = "2.16.840.1.101.3.4.2.3";
@@ -17,7 +19,7 @@ namespace Library
     /// <param name="request">Запрос.</param>
     public static string SignData(string request)
     {
-      /// Получить информацию о подписании из запроса.
+      // Получить информацию о подписании из запроса.
       var requestObj = JsonConvert.DeserializeObject<Request>(request);
       Logger.Info(string.Format("Start signing. PluginName: {0} CertificateID: {1}.", requestObj.PluginName, requestObj.CertificateID));
       var data = Convert.FromBase64String(requestObj.Attributes);
@@ -26,19 +28,19 @@ namespace Library
       // Пример использования диалога пин кода.
       // string pinCode = PinCodeDialog.Get();
 
-      /// Можно получить сертификат из реестра.
-      /// var certificate = GetCertificateFromStore(thumbprint);
+      // Можно получить сертификат из реестра.
+      // var certificate = GetCertificateFromStore(thumbprint);
 
-      /// Можно получить сертификат с помощью диалога.
+      // Можно получить сертификат с помощью диалога.
       string[] key = KeyPathDialog.Get(null);
       var privateKeyFilePath = key[0];
       var privateKeyFilePassword = key[1];
       var certificate = new X509Certificate2(privateKeyFilePath, privateKeyFilePassword);
 
-      /// Формирование ответа для клиента.
+      // Формирование ответа для клиента.
       var response = new Response();
 
-      /// Подписание.
+      // Подписание.
       var cryptoServiceProvider = (RSACryptoServiceProvider)certificate.PrivateKey;
       using (var hasher = SHA512.Create())
       {
