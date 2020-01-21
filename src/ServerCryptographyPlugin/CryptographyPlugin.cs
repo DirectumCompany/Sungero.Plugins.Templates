@@ -22,15 +22,33 @@ namespace CryptographyPlugin
 
     #region ICryptographyPlugin
 
+    /// <summary>
+    /// Идентификатор.
+    /// </summary>
+    // TODO: Для каждого плагина подписания должен быть свой уникальный Guid. Данный идентификатор указан для примера и его следует поменять.
     public Guid Id { get; } = Guid.Parse("a9bb1128-2070-41ed-a1b4-2f206750f8c8");
 
+    /// <summary>
+    /// Применить настройки.
+    /// </summary>
+    /// <param name="settings">Настройки плагина.</param>
     public void ApplySettings(IReadOnlyDictionary<string, string> settings) { }
 
+    /// <summary>
+    /// Получить список дополнительных сертификатов для построения цепочки сертификатов.
+    /// </summary>
+    /// <param name="certificate">Сертификат.</param>
+    /// <returns>Список дополнительных сертификатов для построения цепочки сертификатов.</returns>
     public IEnumerable<X509Certificate2> GetAdditionalCertificates(X509Certificate2 certificate)
     {
       return Enumerable.Empty<X509Certificate2>();
     }
 
+    /// <summary>
+    /// Получить идентификатор алгоритма хэширования по идентификатору алгоритма подписания.
+    /// </summary>
+    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <returns>Идентификатор алгоритма хэширования.</returns>
     public string GetHashAlgorithmIdBySignAlgorithmId(string signAlgorithmId)
     {
       if (!this.IsSignAlgorithmSupported(signAlgorithmId))
@@ -39,6 +57,11 @@ namespace CryptographyPlugin
       return HashAlgorithmExample.AlgorithmId;
     }
 
+    /// <summary>
+    /// Получить обертку над алгоритмом хэширования.
+    /// </summary>
+    /// <param name="hashAlgorithmId">Идентификатор алгоритма хэширования.</param>
+    /// <returns>Обёртка над алгоритмом хэширования.</returns>
     public HashAlgorithmWrapper GetHashAlgorithmWrapperByHashAlgorithmId(string hashAlgorithmId)
     {
       if (!this.IsHashAlgorithmSupported(hashAlgorithmId))
@@ -47,6 +70,11 @@ namespace CryptographyPlugin
       return new HashAlgorithmWrapper(hashAlgorithmId, HashAlgorithmExample.Create);
     }
 
+    /// <summary>
+    /// Получить класс для подписания по идентификатору алгоритма подписания.
+    /// </summary>
+    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <returns>Класс для подписания.</returns>
     public ISigner GetSignerBySignAlgorithmId(string signAlgorithmId)
     {
       if (!this.IsSignAlgorithmSupported(signAlgorithmId))
@@ -55,25 +83,45 @@ namespace CryptographyPlugin
       return new Signer();
     }
 
+    /// <summary>
+    /// Проверить поддерживается ли данный алгоритм хеширования плагином.
+    /// </summary>
+    /// <param name="hashAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <returns>True, если алгоритм хеширования поддерживается плагином.</returns>
     public bool IsHashAlgorithmSupported(string hashAlgorithmId)
     {
       return hashAlgorithmId.Equals(HashAlgorithmExample.AlgorithmId, StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Проверить поддерживается ли данный алгоритм подписания плагином.
+    /// </summary>
+    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <returns>True, если алгоритм подписания поддерживается плагином.</returns>
     public bool IsSignAlgorithmSupported(string signAlgorithmId)
     {
       return signAlgorithmId.Equals(SignAlgorithmId, StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// Выполнить проверку сертификата.
+    /// </summary>
+    /// <param name="certificate">Сертификат.</param>
+    /// <returns>Список ошибок по итогам проверки сертификата.</returns>
+    /// <remarks>Метод реализующий дополнительную проверку сертификата.</remarks>
     public IEnumerable<string> ValidateCertificate(X509Certificate2 certificate)
     {
-      /* Метод реализующий дополнительную проверку сертификата. */
       return Enumerable.Empty<string>();
     }
 
+    /// <summary>
+    /// Выполнить проверку подписи.
+    /// </summary>
+    /// <param name="dataSignature">Подпись.</param>
+    /// <returns>Список ошибок по итогам проверки подписи.</returns>
+    /// <remarks>Метод реализующий дополнительную проверку подписи (в формате CMS).</remarks>
     public IEnumerable<string> VerifySignature(byte[] dataSignature)
     {
-      /* Метод реализующий дополнительную проверку подписи (в формате CMS). */
       return Enumerable.Empty<string>();
     }
 

@@ -21,6 +21,7 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="signature">Подпись.</param>
     /// <returns>Усиленная подпись.</returns>
+    /// <remarks>Если усилять подпись не надо, вернуть исходную подпись.</remarks>
     public byte[] EnhanceSignature(byte[] signature)
     {
       /* Например (добавление штампа времени):
@@ -56,9 +57,11 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="encodedSigningAttributes">Подписываемые атрибуты.</param>
     /// <returns>Модифицированные подписываемые атрибуты.</returns>
+    /// <remarks>Позволяет добавить новые или изменить существующие подписываемые атрибуты. Если нет необходимости в модификации, вернуть входной параметр.
+    /// Подробнее о атрибутах можно найти тут https://ru.wikipedia.org/wiki/CAdES#Обязательные_подписываемые_атрибуты_CAdES-BES. </remarks>
     public byte[] EnhanceSigningAttributes(byte[] encodedSigningAttributes)
     {
-      /* Например (изменение аттрибута IdAASigningCertificateV2):
+      /* Например (изменение атрибута IdAASigningCertificateV2):
        *  var attributesSet = (Asn1Set)Asn1Object.FromByteArray(encodedSigningAttributes);
        *  var attributeTable = new AttributeTable(attributesSet);
        *  var attributeDictionary = attributeTable.ToDictionary();
@@ -75,6 +78,7 @@ namespace CryptographyPlugin
     /// Выполнить инициализацию.
     /// </summary>
     /// <param name="certificate">Сертификат.</param>
+    /// <remarks>Реализация метода зависит от особенностей подписания и может изменяться в зависимости от решаемых задач.</remarks>
     public void Initialize(X509Certificate2 certificate)
     {
       this.Certificate = certificate;
@@ -102,6 +106,7 @@ namespace CryptographyPlugin
     /// Попытаться загрузить закрытый ключ сертификата.
     /// </summary>
     /// <returns>Признак успешности загрузки закрытого ключа.</returns>
+    /// <remarks>Если метод вернул false, то при подписании сгенерируется исключение.</remarks>
     public bool TryLoadPrivateKey()
     {
       /* Например:
