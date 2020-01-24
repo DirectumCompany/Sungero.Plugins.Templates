@@ -41,6 +41,7 @@
     /// </summary>
     /// <param name="message">Сообщение.</param>
     public static void Debug(string message) => Log(LogLevel.DEBUG, message);
+
     /// <summary>
     /// Логировать информационное сообщение.
     /// </summary>

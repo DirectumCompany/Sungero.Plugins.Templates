@@ -11,7 +11,7 @@ namespace Library
   /// </summary>
   public static class Signer
   {
-    private const string Sha512Oid = "2.16.840.1.101.3.4.2.3";
+    private const string AlgorithmId = "2.16.840.1.101.3.4.2.3";
 
     /// <summary>
     /// Подписать данные.
@@ -46,13 +46,13 @@ namespace Library
       {
         try
         {
-          var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), Sha512Oid);
+          var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), AlgorithmId);
           response.Result = CertificateLoadPrivateKeyResult.Success;
           response.Signature = Convert.ToBase64String(signedHash);
         }
         catch (Exception ex)
         {
-          // Пример использования локализации агента:
+          // Пример использования локализации агента (полный список стандартных ошибок при подписании находится в файле .\LocalizeStandardErrors.info):
           // string error = Localizer.L("CRYPTOGRAPHY.ERR_SIGN");
 
           Logger.Error(string.Format("Signing failed. Reason: {0}.", ex.Message));

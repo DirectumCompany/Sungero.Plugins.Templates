@@ -24,6 +24,7 @@ namespace Library
     /// <summary>
     /// Получить результат показа диалога.
     /// </summary>
+    /// <param name="fileFilter">Фильтр выбора файла.</param>
     /// <returns>Массив строк путь и пароль.</returns>
     public static string[] Get(string fileFilter)
     {
