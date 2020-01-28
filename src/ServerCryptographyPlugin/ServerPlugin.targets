@@ -2,6 +2,7 @@
   <!--
     Настройки проекта серверного плагина.
     Задает все недостающие зависимости, а также добавляет формирование zip-пакета плагина после сборки проекта.
+    Крайне не рекомендуется здесь что-либо менять.
   -->
   <ItemGroup>
     <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
@@ -14,7 +15,7 @@
   "PluginFileName": "$(TargetFileName)"
 }
       </PluginPackageContent>
-      <OutputDirectory>$(ProjectDir)\..\..\out\</OutputDirectory>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Server\</OutputDirectory>
     </PropertyGroup>
     <WriteLinesToFile File="$(OutputPath)\_PackageInfo.json" Lines="$(PluginPackageContent)" Overwrite="true" />
     <MakeDir Directories="$(OutputDirectory)"/>

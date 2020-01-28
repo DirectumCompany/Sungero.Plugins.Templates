@@ -11,18 +11,33 @@
         Идентификаторы серверного и клиентского плагинов должны совпадать, идентификатор серверного плагина задается в классе реализующем интерфейс ICryptographyPlugin.
       -->
       <PluginId>a9bb1128-2070-41ed-a1b4-2f206750f8c8</PluginId>
+      <!-- Версия плагина, должна быть увеличена при крупных изменениях. -->
+      <PluginVersion>1.0</PluginVersion>
 
-      <PluginPackageContent>
+      <!-- Ниже код формирования manifest файлов и пакета с плагином, крайне не рекомендуется там что-либо менять. -->
+      <PluginManifestContent>
 {
   "Windows": {
-    "$(PluginId.ToUpper())": "$(TargetFileName)"
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
   }
 }
-      </PluginPackageContent>
-      <OutputDirectory>$(ProjectDir)\..\..\out\</OutputDirectory>
+      </PluginManifestContent>
+      <PluginPackageManifestContent>
+[{
+  "name": "$(AssemblyName)",
+  "platform": "win32",
+  "file": "plugins/$(AssemblyName).zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+}]
+      </PluginPackageManifestContent>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
     </PropertyGroup>
-    <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginPackageContent)" Overwrite="true" />
+    <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginManifestContent)" Overwrite="true" />
     <MakeDir Directories="$(OutputDirectory)"/>
     <ZipDirectory SourceDirectory="$(OutputPath)..\..\..\" DestinationFile="$(OutputDirectory)$(AssemblyName).zip" Overwrite="true" />
+    <WriteLinesToFile File="$(OutputDirectory)$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true" />
   </Target>
 </Project>
