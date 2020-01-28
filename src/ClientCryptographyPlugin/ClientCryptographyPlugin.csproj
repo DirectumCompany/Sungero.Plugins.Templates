@@ -6,17 +6,11 @@
     <TargetFramework>net45</TargetFramework>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <OutputPath>bin\$(Configuration)\plugins\cryptography_plugin\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\Plugin.targets">
-      <Link>Plugin.targets</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
   </ItemGroup>
-  <Import Project="..\Plugin.targets" />
-</Project>
+  <Import Project="ClientPlugin.targets" />
+ </Project>

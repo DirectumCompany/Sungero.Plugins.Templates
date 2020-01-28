@@ -9,16 +9,5 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <None Remove="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Plugin.targets">
-      <Link>Plugin.targets</Link>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
-  </ItemGroup>
-  <Import Project="..\Plugin.targets" />
+  <Import Project="ServerPlugin.targets" />
 </Project>

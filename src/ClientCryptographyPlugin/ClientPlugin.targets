@@ -1,0 +1,28 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+    Настройки проекта клиентского плагина.
+    Добавляет формирование zip-пакета плагина после сборки проекта.
+  -->
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <PropertyGroup>
+      <!--
+        Для каждого плагина подписания должен быть свой уникальный Guid. Данный идентификатор указан для примера и его следует поменять.
+        Идентификаторы серверного и клиентского плагинов должны совпадать, идентификатор серверного плагина задается в классе реализующем интерфейс ICryptographyPlugin.
+      -->
+      <PluginId>a9bb1128-2070-41ed-a1b4-2f206750f8c8</PluginId>
+
+      <PluginPackageContent>
+{
+  "Windows": {
+    "$(PluginId.ToUpper())": "$(TargetFileName)"
+  }
+}
+      </PluginPackageContent>
+      <OutputDirectory>$(ProjectDir)\..\..\out\</OutputDirectory>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginPackageContent)" Overwrite="true" />
+    <MakeDir Directories="$(OutputDirectory)"/>
+    <ZipDirectory SourceDirectory="$(OutputPath)..\..\..\" DestinationFile="$(OutputDirectory)$(AssemblyName).zip" Overwrite="true" />
+  </Target>
+</Project>
