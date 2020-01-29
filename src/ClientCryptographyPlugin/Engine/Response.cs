@@ -1,6 +1,8 @@
 ﻿namespace Library
 {
-  /// <summary>Перечень результатов получения закрытого ключа.</summary>
+  /// <summary>
+  /// Перечень результатов получения закрытого ключа.
+  /// </summary>
   public enum CertificateLoadPrivateKeyResult
   {
     Success = 0,
@@ -12,7 +14,9 @@
     InvalidFile = 6
   }
 
-  /// <summary> Класс ответа. </summary>
+  /// <summary>
+  /// Класс ответа.
+  /// </summary>
   internal class Response
   {
     /// <summary>

@@ -14,7 +14,7 @@ namespace CryptographyPlugin
     #region Поля и свойства
 
     /// <summary>
-    /// ИД алгоритма подписания.
+    /// Идентификатор алгоритма подписания.
     /// </summary>
     private const string SignAlgorithmId = "1.3.14.3.2.29";
 
@@ -46,10 +46,10 @@ namespace CryptographyPlugin
     }
 
     /// <summary>
-    /// Получить идентификатор алгоритма хэширования по идентификатору алгоритма подписания.
+    /// Получить идентификатор алгоритма хеширования по идентификатору алгоритма подписания.
     /// </summary>
-    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
-    /// <returns>Идентификатор алгоритма хэширования.</returns>
+    /// <param name="signAlgorithmId">Идентификатор алгоритма подписания.</param>
+    /// <returns>Идентификатор алгоритма хеширования.</returns>
     public string GetHashAlgorithmIdBySignAlgorithmId(string signAlgorithmId)
     {
       if (!this.IsSignAlgorithmSupported(signAlgorithmId))
@@ -59,10 +59,10 @@ namespace CryptographyPlugin
     }
 
     /// <summary>
-    /// Получить обертку над алгоритмом хэширования.
+    /// Получить обертку над алгоритмом хеширования.
     /// </summary>
-    /// <param name="hashAlgorithmId">Идентификатор алгоритма хэширования.</param>
-    /// <returns>Обёртка над алгоритмом хэширования.</returns>
+    /// <param name="hashAlgorithmId">Идентификатор алгоритма хеширования.</param>
+    /// <returns>Обертка над алгоритмом хеширования.</returns>
     public HashAlgorithmWrapper GetHashAlgorithmWrapperByHashAlgorithmId(string hashAlgorithmId)
     {
       if (!this.IsHashAlgorithmSupported(hashAlgorithmId))
@@ -74,7 +74,7 @@ namespace CryptographyPlugin
     /// <summary>
     /// Получить класс для подписания по идентификатору алгоритма подписания.
     /// </summary>
-    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <param name="signAlgorithmId">Идентификатор алгоритма подписания.</param>
     /// <returns>Класс для подписания.</returns>
     public ISigner GetSignerBySignAlgorithmId(string signAlgorithmId)
     {
@@ -87,7 +87,7 @@ namespace CryptographyPlugin
     /// <summary>
     /// Проверить поддерживается ли данный алгоритм хеширования плагином.
     /// </summary>
-    /// <param name="hashAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <param name="hashAlgorithmId">Идентификатор алгоритма подписания.</param>
     /// <returns>True, если алгоритм хеширования поддерживается плагином.</returns>
     public bool IsHashAlgorithmSupported(string hashAlgorithmId)
     {
@@ -97,7 +97,7 @@ namespace CryptographyPlugin
     /// <summary>
     /// Проверить поддерживается ли данный алгоритм подписания плагином.
     /// </summary>
-    /// <param name="signAlgorithmId">Иденетификатор алгоритма подписания.</param>
+    /// <param name="signAlgorithmId">Идентификатор алгоритма подписания.</param>
     /// <returns>True, если алгоритм подписания поддерживается плагином.</returns>
     public bool IsSignAlgorithmSupported(string signAlgorithmId)
     {

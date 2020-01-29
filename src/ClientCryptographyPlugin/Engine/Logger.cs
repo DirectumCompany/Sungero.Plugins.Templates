@@ -1,9 +1,13 @@
 ﻿namespace Library
-{ 
-  /// <summary> Класс логгера. Означивает и вызывает метод логирования у агента. </summary>
+{
+  /// <summary>
+  /// Класс логгера. Означивает и вызывает метод логирования у агента.
+  /// </summary>
   public static class Logger
   {
-    /// <summary>Перечень уровней логирования.</summary>
+    /// <summary>
+    /// Перечень уровней логирования.
+    /// </summary>
     public enum LogLevel
     {
       DEBUG = 10,
@@ -61,7 +65,7 @@
     public static void Error(string message) => Log(LogLevel.ERROR, message);
 
     /// <summary>
-    /// Логировать критич ошибку.
+    /// Логировать критическую ошибку.
     /// </summary>
     /// <param name="message">Сообщение.</param>
     public static void Fatal(string message) => Log(LogLevel.CRITICAL, message);

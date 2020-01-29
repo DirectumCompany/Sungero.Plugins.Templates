@@ -2,7 +2,9 @@
 
 namespace Library
 {
-  /// <summary> Класс диалога выбора файла с ключом.
+  /// <summary>
+  /// Класс диалога выбора файла с ключом.
+  /// </summary>
   public static class KeyPathDialog
   {
     /// <summary>

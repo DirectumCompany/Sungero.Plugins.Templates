@@ -21,7 +21,7 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="signature">Подпись.</param>
     /// <returns>Усиленная подпись.</returns>
-    /// <remarks>Если усилять подпись не надо, вернуть исходную подпись.</remarks>
+    /// <remarks>Если усиливать подпись не надо, вернуть исходную подпись.</remarks>
     public byte[] EnhanceSignature(byte[] signature)
     {
       /* Например (добавление штампа времени):
@@ -88,7 +88,7 @@ namespace CryptographyPlugin
     /// Подписать данные.
     /// </summary>
     /// <param name="data">Данные (массив байт).</param>
-    /// <param name="hashAlgorithmWrapper">Обёртка над алгоритмом хэширования.</param>
+    /// <param name="hashAlgorithmWrapper">Обертка над алгоритмом хеширования.</param>
     /// <returns>Подпись.</returns>
     /// <remarks>Необходимо вернуть "сырую подпись" (не CMS).</remarks>
     public byte[] SignData(byte[] data, HashAlgorithmWrapper hashAlgorithmWrapper)
@@ -116,7 +116,7 @@ namespace CryptographyPlugin
        *    .OfType<X509Certificate2>()
        *    .FirstOrDefault(c => (c.Thumbprint?.Equals(this.Certificate.Thumbprint, StringComparison.OrdinalIgnoreCase) ?? false) && c.HasPrivateKey);
        *  store.Close();
-       * 
+       *
        *  if (privateKeyCertificate != null)
        *  {
        *    this.Certificate = privateKeyCertificate;
@@ -132,7 +132,7 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="data">Данные (массив байт).</param>
     /// <param name="signature">Подписанные данные.</param>
-    /// <param name="hashAlgorithmWrapper">Обёртка над алгоритмом хэширования.</param>
+    /// <param name="hashAlgorithmWrapper">Обертка над алгоритмом хеширования.</param>
     /// <returns></returns>
     /// <remarks>Проверяется "сырая подпись" (не CMS).</remarks>
     public bool VerifySignature(byte[] data, byte[] signature, HashAlgorithmWrapper hashAlgorithmWrapper)

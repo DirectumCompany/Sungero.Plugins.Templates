@@ -1,6 +1,8 @@
 ﻿namespace Library
 {
-  /// <summary> Класс локализатора. Означивает и вызывает метод локализации у агента. </summary>
+  /// <summary>
+  /// Класс локализатора. Означивает и вызывает метод локализации у агента.
+  /// </summary>
   public static class Localizer
   {
     /// <summary>
