@@ -1,7 +1,7 @@
 ﻿namespace Library
 {
   /// <summary>
-  /// Класс диалога выбора пин кода.
+  /// Класс диалога выбора пин-кода.
   /// </summary>
   public static class PinCodeDialog
   {
