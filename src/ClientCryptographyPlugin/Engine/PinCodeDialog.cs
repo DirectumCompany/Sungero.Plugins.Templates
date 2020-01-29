@@ -24,7 +24,7 @@
     /// <summary>
     /// Получить результат показа диалога.
     /// </summary>
-    /// <returns>Строка пин кода.</returns>
+    /// <returns>Строка пин-кода.</returns>
     public static string Get() => pinCodeDialogDelegate.DynamicInvoke()?.ToString();
   }
 }
