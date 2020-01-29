@@ -1,21 +1,24 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--
-    Настройки проектов серверного плагина.
+    Настройки проекта серверного плагина.
     Задает все недостающие зависимости, а также добавляет формирование zip-пакета плагина после сборки проекта.
+    Крайне не рекомендуется здесь что-либо менять.
   -->
   <ItemGroup>
     <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' != 'CheckIn'">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
       <PluginPackageContent>
 {
   "PluginFileName": "$(TargetFileName)"
 }
       </PluginPackageContent>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Server\</OutputDirectory>
     </PropertyGroup>
     <WriteLinesToFile File="$(OutputPath)\_PackageInfo.json" Lines="$(PluginPackageContent)" Overwrite="true" />
-    <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(ProjectDir)\bin\$(AssemblyName).zip" Overwrite="true" />
+    <MakeDir Directories="$(OutputDirectory)"/>
+    <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(OutputDirectory)$(AssemblyName).zip" Overwrite="true" />
   </Target>
 </Project>
