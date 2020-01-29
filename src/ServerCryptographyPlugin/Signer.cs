@@ -24,7 +24,7 @@ namespace CryptographyPlugin
     /// <remarks>Если усиливать подпись не надо, вернуть исходную подпись.</remarks>
     public byte[] EnhanceSignature(byte[] signature)
     {
-      /* Например (добавление штампа времени):
+      /* Пример. Добавление штампа времени.
        *   var hashAlgorithmWrapper = new HashAlgorithmWrapper(HashAlgorithmExample.AlgorithmId, HashAlgorithmExample.Create);
        *   var hash = hashAlgorithmWrapper.ComputeHash(signature);
        *   var requestGenerator = new TimeStampRequestGenerator();
@@ -57,11 +57,11 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="encodedSigningAttributes">Подписываемые атрибуты.</param>
     /// <returns>Модифицированные подписываемые атрибуты.</returns>
-    /// <remarks>Позволяет добавить новые или изменить существующие подписываемые атрибуты. Если нет необходимости в модификации, вернуть входной параметр.
-    /// Подробнее о атрибутах можно найти тут https://ru.wikipedia.org/wiki/CAdES#Обязательные_подписываемые_атрибуты_CAdES-BES. </remarks>
+    /// <remarks>Позволяет добавить новые или изменить существующие подписываемые атрибуты. Если нет необходимости в модификации, возвращает входной параметр.
+    /// Подробнее о атрибутах см. в статье https://ru.wikipedia.org/wiki/CAdES#Обязательные_подписываемые_атрибуты_CAdES-BES. </remarks>
     public byte[] EnhanceSigningAttributes(byte[] encodedSigningAttributes)
     {
-      /* Например (изменение атрибута IdAASigningCertificateV2):
+      /* Пример. Изменение атрибута IdAASigningCertificateV2.
        *  var attributesSet = (Asn1Set)Asn1Object.FromByteArray(encodedSigningAttributes);
        *  var attributeTable = new AttributeTable(attributesSet);
        *  var attributeDictionary = attributeTable.ToDictionary();
@@ -105,7 +105,7 @@ namespace CryptographyPlugin
     /// <summary>
     /// Попытаться загрузить закрытый ключ сертификата.
     /// </summary>
-    /// <returns>Признак успешности загрузки закрытого ключа.</returns>
+    /// <returns>Признак успешной загрузки закрытого ключа.</returns>
     /// <remarks>Если метод вернул false, то при подписании сгенерируется исключение.</remarks>
     public bool TryLoadPrivateKey()
     {
