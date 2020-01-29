@@ -25,7 +25,7 @@ namespace Library
       var data = Convert.FromBase64String(requestObj.Attributes);
       var thumbprint = requestObj.CertificateID;
 
-      // Пример использования диалога пин кода.
+      // Пример использования диалога пин-кода.
       // string pinCode = PinCodeDialog.Get();
 
       // Можно получить сертификат из реестра.
@@ -52,7 +52,7 @@ namespace Library
         }
         catch (Exception ex)
         {
-          // Пример использования локализации агента (полный список стандартных ошибок при подписании находится в файле LocalizerStandardErrors.md):
+          // Пример использования локализации веб-агента. Полный список стандартных ошибок при подписании находится в файле LocalizerStandardErrors.md.
           // string error = Localizer.L("CRYPTOGRAPHY.ERR_SIGN");
 
           Logger.Error(string.Format("Signing failed. Reason: {0}.", ex.Message));
