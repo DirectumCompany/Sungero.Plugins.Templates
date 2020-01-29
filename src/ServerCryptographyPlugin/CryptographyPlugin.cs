@@ -23,9 +23,9 @@ namespace CryptographyPlugin
     #region ICryptographyPlugin
 
     /// <summary>
-    /// Идентификатор.
+    /// Идентификатор плагина (GUID).
     /// </summary>
-    // TODO: Для каждого плагина подписания должен быть свой уникальный Guid. Данный идентификатор указан для примера и его следует поменять.
+    // TODO: Для каждого плагина подписания должен быть свой уникальный GUID. Данный идентификатор указан для примера и его следует поменять.
     // TODO: Идентификаторы серверного и клиентского плагинов должны совпадать, идентификатор клиентского плагина задается в файле ClientPlugin.targets.
     public Guid Id { get; } = Guid.Parse("a9bb1128-2070-41ed-a1b4-2f206750f8c8");
 
@@ -85,9 +85,9 @@ namespace CryptographyPlugin
     }
 
     /// <summary>
-    /// Проверить поддерживается ли данный алгоритм хеширования плагином.
+    /// Проверить, поддерживается ли плагином данный алгоритм хеширования.
     /// </summary>
-    /// <param name="hashAlgorithmId">Идентификатор алгоритма подписания.</param>
+    /// <param name="hashAlgorithmId">Идентификатор алгоритма хеширования.</param>
     /// <returns>True, если алгоритм хеширования поддерживается плагином.</returns>
     public bool IsHashAlgorithmSupported(string hashAlgorithmId)
     {
@@ -95,7 +95,7 @@ namespace CryptographyPlugin
     }
 
     /// <summary>
-    /// Проверить поддерживается ли данный алгоритм подписания плагином.
+    /// Проверить, поддерживается ли плагином данный алгоритм подписания.
     /// </summary>
     /// <param name="signAlgorithmId">Идентификатор алгоритма подписания.</param>
     /// <returns>True, если алгоритм подписания поддерживается плагином.</returns>
@@ -109,7 +109,7 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="certificate">Сертификат.</param>
     /// <returns>Список ошибок по итогам проверки сертификата.</returns>
-    /// <remarks>Метод реализующий дополнительную проверку сертификата.</remarks>
+    /// <remarks>Метод, реализующий дополнительную проверку сертификата.</remarks>
     public IEnumerable<string> ValidateCertificate(X509Certificate2 certificate)
     {
       return Enumerable.Empty<string>();
@@ -120,7 +120,7 @@ namespace CryptographyPlugin
     /// </summary>
     /// <param name="dataSignature">Подпись.</param>
     /// <returns>Список ошибок по итогам проверки подписи.</returns>
-    /// <remarks>Метод реализующий дополнительную проверку подписи (в формате CMS).</remarks>
+    /// <remarks>Метод, реализующий дополнительную проверку подписи в формате CMS.</remarks>
     public IEnumerable<string> VerifySignature(byte[] dataSignature)
     {
       return Enumerable.Empty<string>();
