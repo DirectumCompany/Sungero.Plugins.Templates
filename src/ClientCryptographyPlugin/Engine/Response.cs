@@ -1,7 +1,7 @@
 ﻿namespace Library
 {
   /// <summary>
-  /// Перечень результатов получения закрытого ключа.
+  /// Результаты получения закрытого ключа.
   /// </summary>
   public enum CertificateLoadPrivateKeyResult
   {
