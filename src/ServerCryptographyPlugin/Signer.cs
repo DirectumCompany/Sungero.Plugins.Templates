@@ -58,7 +58,7 @@ namespace CryptographyPlugin
     /// <param name="encodedSigningAttributes">Подписываемые атрибуты.</param>
     /// <returns>Модифицированные подписываемые атрибуты.</returns>
     /// <remarks>Позволяет добавить новые или изменить существующие подписываемые атрибуты. Если нет необходимости в модификации, возвращает входной параметр.
-    /// Подробнее о атрибутах см. в статье https://ru.wikipedia.org/wiki/CAdES#Обязательные_подписываемые_атрибуты_CAdES-BES. </remarks>
+    /// Подробнее об атрибутах см. в статье https://ru.wikipedia.org/wiki/CAdES#Обязательные_подписываемые_атрибуты_CAdES-BES. </remarks>
     public byte[] EnhanceSigningAttributes(byte[] encodedSigningAttributes)
     {
       /* Пример. Изменение атрибута IdAASigningCertificateV2.
