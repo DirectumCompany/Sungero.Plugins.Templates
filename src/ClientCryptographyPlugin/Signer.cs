@@ -11,44 +11,44 @@ namespace Library
   /// </summary>
   public static class Signer
   {
-    private const string AlgorithmId = "2.16.840.1.101.3.4.2.3";
-
     /// <summary>
     /// Подписать данные.
     /// </summary>
-    /// <param name="request">Запрос.</param>
-    public static string SignData(string request)
+    /// <param name="requestString">Запрос.</param>
+    public static string SignData(string requestString)
     {
       // Получить информацию о подписании из запроса.
-      var requestObj = JsonConvert.DeserializeObject<Request>(request);
+      var requestObj = JsonConvert.DeserializeObject<Request>(requestString);
+      // Пример использования класса логирования.
       Logger.Info(string.Format("Start signing. PluginName: {0} CertificateID: {1}.", requestObj.PluginName, requestObj.CertificateID));
       var data = Convert.FromBase64String(requestObj.Attributes);
       var thumbprint = requestObj.CertificateID;
 
-      // Пример использования диалога пин-кода.
+      // Можно получить сертификат из реестра.
+      var certificate = GetCertificateFromStore(thumbprint);
+
+      // Пример использования диалога пин-кода (может потребоваться для доступа к токену).
       // string pinCode = PinCodeDialog.Get();
 
-      // Можно получить сертификат из реестра.
-      // var certificate = GetCertificateFromStore(thumbprint);
-
-      // Можно получить сертификат с помощью диалога.
-      string[] key = KeyPathDialog.Get(null);
-      var privateKeyFilePath = key[0];
-      var privateKeyFilePassword = key[1];
-      var certificate = new X509Certificate2(privateKeyFilePath, privateKeyFilePassword);
+      // Пример использования диалога выбора сертификата для получения сертификата из файла.
+      // string[] key = KeyPathDialog.Get(null);
+      // var privateKeyFilePath = key[0];
+      // var privateKeyFilePassword = key[1];
+      // var certificate = new X509Certificate2(privateKeyFilePath, privateKeyFilePassword);
 
       // Формирование ответа для клиента.
       var response = new Response();
 
-      // Подписание.
+      // Пример подписания с использованием SHA512 и RSA.
       var cryptoServiceProvider = (RSACryptoServiceProvider)certificate.PrivateKey;
       using (var hasher = SHA512.Create())
       {
         try
         {
-          var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), AlgorithmId);
+          const string SHA512AlgorithmIdentifier = "2.16.840.1.101.3.4.2.3";
+          var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), SHA512AlgorithmIdentifier);
           response.Result = CertificateLoadPrivateKeyResult.Success;
-          response.Signature = Convert.ToBase64String(signedHash);
+          response.SetSignature(signedHash);
         }
         catch (Exception ex)
         {
@@ -65,7 +65,7 @@ namespace Library
     }
 
     /// <summary>
-    /// Получить сертификат из хранилища.
+    /// Получить сертификат с закрытым ключом из хранилища текущего пользователя.
     /// </summary>
     /// <param name="thumbprint">Отпечаток сертификата.</param>
     /// <returns>Сертификат.</returns>
