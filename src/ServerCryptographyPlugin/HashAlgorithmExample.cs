@@ -12,6 +12,14 @@ namespace CryptographyPlugin
     /// Идентификатор алгоритма хеширования.
     /// </summary>
     internal const string AlgorithmId = "1.3.14.3.2.26";
+    
+    /// <summary>
+    /// Создать экземпляр класса алгоритма хеширования.
+    /// </summary>
+    public static new HashAlgorithmExample Create()
+    {
+      return new HashAlgorithmExample();
+    }
 
     /// <summary>
     /// Сбросить алгоритм хеширования в исходное состояние.
