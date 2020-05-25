@@ -132,9 +132,10 @@ namespace CryptographyPlugin
     /// Выполнить проверку сертификата.
     /// </summary>
     /// <param name="certificate">Сертификат.</param>
+    /// <param name="verificationDateTime">Время на которое осуществляется проверка.</param>
     /// <returns>Список ошибок по итогам проверки сертификата.</returns>
     /// <remarks>Метод, реализующий дополнительную проверку сертификата.</remarks>
-    public IEnumerable<string> ValidateCertificate(X509Certificate2 certificate)
+    public IEnumerable<string> ValidateCertificate(X509Certificate2 certificate, DateTime verificationDateTime)
     {
       return Enumerable.Empty<string>();
     }
