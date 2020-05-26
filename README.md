@@ -1,6 +1,8 @@
 # Sungero.Plugins.Templates
 В репозитории находятся шаблоны проектов для разработки плагина подписания к системе DirectumRX.
-Шаблоны проектов созданы в Microsoft Visual Studio 2017. 
+Шаблоны проектов созданы в Microsoft Visual Studio 2017.
+Данная версия проекта совместима с платформой Sungero версии 3.3.8.0019 и выше. 
+Для платформы Sungero версии 3.3.8.0018 и ниже необходимо переключиться на ветку 3.3.8.0018. 
 
 ### Как разработать плагин подписания
 1. В проектах `ServerCryptographyPlugin`, `ClientCryptographyPlugin` измените имя сборки на свое (например, на `MyServerCryptographyPlugin`, `MyClientCryptographyPlugin`)
