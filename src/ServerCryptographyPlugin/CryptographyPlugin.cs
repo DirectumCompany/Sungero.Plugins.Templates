@@ -79,7 +79,7 @@ namespace CryptographyPlugin
       if (!this.IsSignAlgorithmSupported(signAlgorithmId))
         throw new NotSupportedException();
 
-      return HashAlgorithmExample.AlgorithmId;
+      return HashAlgorithm.AlgorithmId;
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ namespace CryptographyPlugin
       if (!this.IsHashAlgorithmSupported(hashAlgorithmId))
         throw new NotSupportedException();
 
-      return new HashAlgorithmWrapper(hashAlgorithmId, HashAlgorithmExample.Create);
+      return new HashAlgorithmWrapper(hashAlgorithmId, HashAlgorithm.Create);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ namespace CryptographyPlugin
     /// <returns>True, если алгоритм хеширования поддерживается плагином.</returns>
     public bool IsHashAlgorithmSupported(string hashAlgorithmId)
     {
-      return hashAlgorithmId.Equals(HashAlgorithmExample.AlgorithmId, StringComparison.OrdinalIgnoreCase);
+      return hashAlgorithmId.Equals(HashAlgorithm.AlgorithmId, StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
