@@ -25,7 +25,7 @@ namespace CryptographyPlugin
     public byte[] EnhanceSignature(byte[] signature)
     {
       /* Пример. Добавление штампа времени.
-       *   var hashAlgorithmWrapper = new HashAlgorithmWrapper(HashAlgorithmExample.AlgorithmId, HashAlgorithmExample.Create);
+       *   var hashAlgorithmWrapper = new HashAlgorithmWrapper(HashAlgorithm.AlgorithmId, HashAlgorithm.Create);
        *   var hash = hashAlgorithmWrapper.ComputeHash(signature);
        *   var requestGenerator = new TimeStampRequestGenerator();
        *   requestGenerator.SetCertReq(true);
