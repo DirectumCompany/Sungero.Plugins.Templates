@@ -19,7 +19,7 @@
     * При необходимости модифицируйте методы класса `CryptographyPlugin`. Укажите нужный идентификатор алгоритма подписания в данном классе (поле `SignAlgorithmId`).
     * При необходимости создайте свой алгоритм хеширования с помощью класса `HashAlgorithm`.
     * Взаимодействие между классами описано в начале модуля `CryptographyPlugin.cs`.
-    * в `ServerCryptographyPlugin.csproj` указан `<TargetFrameworks>net461;netstandard2.0</TargetFrameworks>`. Для Windows используется сборка под .NET Framework 4.6.1, под Linux - .NET Standard 2.0. Если необходимо разработать плагин только под одну из платформ, модифицируйте `TargetFrameworks`.
+    * в `ServerCryptographyPlugin.csproj` указан `<TargetFrameworks>net461;netstandard2.0</TargetFrameworks>`. Под Windows используется сборка под .NET Framework 4.6.1, под Linux - .NET Standard 2.0. Если необходимо разработать плагин только под одну из платформ, модифицируйте `TargetFrameworks`.
 4. Реализуйте **клиентский плагин**. Для этого:
     * Модифицируйте методы класса `Signer`. 
 5. Соберите проект. В папке *out* в корне проекта появятся папки *Client* и *Server*, содержащие файлы клиентского и серверного плагинов соответственно.
