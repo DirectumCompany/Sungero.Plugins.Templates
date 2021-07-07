@@ -10,6 +10,6 @@
   </PropertyGroup>
   <Import Project="ServerPlugin.targets" />
   <ItemGroup>
-    <PackageReference Update="Sungero.Plugins.Sdk" Version="1.1.2" />
+    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.1.2" />
   </ItemGroup>
 </Project>
