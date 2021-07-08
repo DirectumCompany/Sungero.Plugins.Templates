@@ -4,9 +4,6 @@
     Задает все недостающие зависимости, а также добавляет формирование zip-пакета плагина после сборки проекта.
     ВАЖНО. Следующий код не рекомендуется изменять.
   -->
-  <ItemGroup>
-    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.0.0" />
-  </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
@@ -17,10 +14,7 @@
       </PluginPackageContent>
     </PropertyGroup>
 	<PropertyGroup>
-	  <OutputDirectory>$(ProjectDir)\..\..\out\Server\netframework\</OutputDirectory>
-	</PropertyGroup>
-	<PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
-	  <OutputDirectory>$(ProjectDir)\..\..\out\Server\netstandard\</OutputDirectory>
+	  <OutputDirectory>$(ProjectDir)\..\..\out\Server\</OutputDirectory>
 	</PropertyGroup>
 	<WriteLinesToFile File="$(OutputPath)\_PackageInfo.json" Lines="$(PluginPackageContent)" Overwrite="true" />
     <MakeDir Directories="$(OutputDirectory)"/>

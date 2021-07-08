@@ -3,13 +3,13 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <RootNamespace>ServerCryptographyPlugin</RootNamespace>
     <AssemblyName>ServerCryptographyPlugin</AssemblyName>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)</OutputPath>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
   <Import Project="ServerPlugin.targets" />
   <ItemGroup>
-    <PackageReference Update="Sungero.Plugins.Sdk" Version="1.1.0" />
+    <PackageReference Include="Sungero.Plugins.Sdk" Version="1.1.2" />
   </ItemGroup>
 </Project>
