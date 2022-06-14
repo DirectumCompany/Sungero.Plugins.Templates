@@ -45,6 +45,8 @@
     ```C:\inetpub\wwwroot\Client\content\WebAgent\plugins\```
     * Запустите утилиту *packages_manifest_updater.exe* из папки *PackagesManifestUpdater* веб-агента на сервере приложений, например, из  
     ```C:\inetpub\wwwroot\Client\content\WebAgent\PackagesManifestUpdater```
+    
+    В разных версиях Directum RX путь может отличаться, ориентир - папка WebAgent.
 	
 ### Особенности формирования и проверки электронной подписи в Directum RX
 * Электронная подпись формируется в формате CAdES-BES.
