@@ -41,10 +41,17 @@
     Чтение настроек в плагине выполняется в методе `CryptographyPlugin.ApplySettings()`.
 	Плагин облачного подписания также является серверным плагином, поэтому подключается и настраивается аналогично.
 8. При необходимости подключите клиентский плагин к Directum RX. Клиентский плагин используется в веб-агенте при работе веб-клиента Directum RX. Для подключения:
+    Для Windows:
     * Скопируйте файлы из папки *out\Client* в папку плагинов веб-агента на сервере приложений, например, в  
     ```C:\inetpub\wwwroot\Client\content\WebAgent\plugins\```
     * Запустите утилиту *packages_manifest_updater.exe* из папки *PackagesManifestUpdater* веб-агента на сервере приложений, например, из  
     ```C:\inetpub\wwwroot\Client\content\WebAgent\PackagesManifestUpdater```
+
+    Для Linux:
+    * Скопируйте файлы из папки *out\Client* в папку плагинов веб-агента на сервере приложений, например, в  
+    ```\SungeroWebClient\content\WebAgent\plugins\```
+    * Запустите утилиту *packages_manifest_updater.exe* из папки *PackagesManifestUpdater* веб-агента на сервере приложений, например, из  
+    ```\SungeroWebClient\content\WebAgent\PackagesManifestUpdater```
     
     В разных версиях Directum RX путь может отличаться, ориентир - папка WebAgent.
 	
