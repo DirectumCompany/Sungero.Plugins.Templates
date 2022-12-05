@@ -21,7 +21,7 @@ namespace CryptographyPlugin
    * Для простоты примера в этом классе будут написаны только методы, необходимые для подписания.
    * Пример проверки подписи и сертификатов см. в классах CryptographyPlugin и Signer.
   */
-  
+
   /// <summary>
   /// Плагин облачного подписания.
   /// </summary>
@@ -50,19 +50,22 @@ namespace CryptographyPlugin
     private async Task<string> GetAccessTokenAsync()
     {
       // В платформе есть механизм кеширования токенов доступа пользователей, которым можно воспользоваться из плагина.
-      // Возможно токен уже есть в кеше, и ничего получать не нужно.
+      // Возможно, токен уже есть в кеше, и ничего получать не нужно.
       var token = CloudTokens.Get(this.Id.ToString());
       if (!string.IsNullOrEmpty(token))
         return token;
-      
+
       // В примере JWT-токены получаются по OAuth2 token exchange flow.
-      // Сначала получается JWT-токен в RX. В токен можно добавить некоторые утверждения, необходимые криптопровайдеру.
+      // Сначала создается JWT-токен в RX. В токен можно добавить некоторые утверждения, необходимые криптопровайдеру.
       var testClaims = new Dictionary<string, string>
       {
         { "someClaim", "someValue" },
         { "role", "Users" }
       };
       var platformToken = PlatformTokens.CreateToken("testSignCloudService", TimeSpan.FromMinutes(5), testClaims);
+
+      // Вместо токенов платформы можно создавать JWT-токены AD FS, для этого нужно использовать метод OauthTokens.CreateToken().
+      // Для корректного создания таких токенов потребуется настройка интеграции плагина с AD FS, подробности описаны в документации Directum RX.
 
       // Затем этот JWT-токен RX обменивается на JWT-токен криптопровайдера.
       using (var request = new HttpRequestMessage(HttpMethod.Post, new Uri(this.cryptoProviderAddress, "/tokens")))
