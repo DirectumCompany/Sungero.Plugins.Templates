@@ -12,19 +12,25 @@
       -->
       <PluginId>a9bb1128-2070-41ed-a1b4-2f206750f8c8</PluginId>
       <!-- Версия плагина. При изменении плагина необходимо увеличить ее номер. На номер версии ориентируется веб-агент при обновлении плагина на рабочем месте пользователя. -->
-      <PluginVersion>1.0</PluginVersion>
-
+      <PluginVersion>1.0</PluginVersion>      
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
+      <LinuxRuntimeDirectory>$(ProjectDir)\..\..\etc\linux-runtime\</LinuxRuntimeDirectory>
+    </PropertyGroup>
       <!-- 
          Ниже код формирования manifest-файлов и пакета с плагином.
          ВАЖНО. Следующий код не рекомендуется изменять. 
       -->
+    <PropertyGroup>  
       <PluginManifestContent>
 {
   "Windows": {
     "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  },
+  "Linux": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
   }
 }
-      </PluginManifestContent>
+      </PluginManifestContent> 
       <PluginPackageManifestContent>
 [{
   "name": "$(AssemblyName)",
@@ -34,13 +40,45 @@
   "version": "$(PluginVersion)",
   "guid": "$(PluginId.ToUpper())",
   "dependencies": ["cryptographyplugin"]
+},
+{
+  "name": "$(AssemblyName)",
+  "platform": "linux64",
+  "file": "plugins/$(AssemblyName).zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
 }]
       </PluginPackageManifestContent>
-      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
-    </PropertyGroup>
+    </PropertyGroup>	
     <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginManifestContent)" Overwrite="true" />
     <MakeDir Directories="$(OutputDirectory)"/>
-    <ZipDirectory SourceDirectory="$(OutputPath)..\..\..\" DestinationFile="$(OutputDirectory)$(AssemblyName).zip" Overwrite="true" />
-    <WriteLinesToFile File="$(OutputDirectory)$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true" />
+    <PropertyGroup>
+      <TempDirectoryFramework>$(OutputDirectory)\tmp_frm\</TempDirectoryFramework>
+      <TempDirectoryStandard>$(OutputDirectory)\tmp_std\</TempDirectoryStandard>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+      <TempPath>$(TempDirectoryFramework)$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
+      <TempPath>$(TempDirectoryStandard)$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+    </PropertyGroup>
+    <PropertyGroup>
+      <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
+    </PropertyGroup>  
+    <ItemGroup>
+      <CopySourceFiles Include="$(OutputPath)*.*"/>
+      <CopyLinuxRuntimeFiles Include="$(LinuxRuntimeDirectory)\**\*.*"/>
+    </ItemGroup> 
+    <MakeDir Directories="$(ZipSourcePath)"/>
+    <MakeDir Directories="$(TempPath)"/>
+    <MakeDir Directories="$(TempPath)\runtime" Condition="'$(WithLinuxRuntime)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
+    <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)" />
+    <Copy SourceFiles="@(CopyLinuxRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)" Condition="'$(WithLinuxRuntime)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(OutputDirectory)\$(TargetFramework)_$(AssemblyName).zip" Overwrite="true" />
+    <WriteLinesToFile File="$(OutputDirectory)\$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true" />
+    <RemoveDir Directories="$(TempDirectoryFramework)" Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'"/>
+    <RemoveDir Directories="$(TempDirectoryStandard)" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
   </Target>
 </Project>
