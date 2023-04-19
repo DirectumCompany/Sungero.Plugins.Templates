@@ -182,6 +182,7 @@ BundleArtifacts/
 
 # Others
 ClientBin/
+etc/linux-runtime/
 [Ss]tyle[Cc]op.*
 ~$*
 *~

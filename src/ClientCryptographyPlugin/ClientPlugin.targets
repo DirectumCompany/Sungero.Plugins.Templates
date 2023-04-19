@@ -13,7 +13,8 @@
       <PluginId>a9bb1128-2070-41ed-a1b4-2f206750f8c8</PluginId>
       <!-- Версия плагина. При изменении плагина необходимо увеличить ее номер. На номер версии ориентируется веб-агент при обновлении плагина на рабочем месте пользователя. -->
       <PluginVersion>1.0</PluginVersion>      
-      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>	  
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
+      <LinuxRuntimeDirectory>$(ProjectDir)\..\..\etc\linux-runtime\</LinuxRuntimeDirectory>
     </PropertyGroup>
       <!-- 
          Ниже код формирования manifest-файлов и пакета с плагином.
@@ -68,10 +69,13 @@
     </PropertyGroup>  
     <ItemGroup>
       <CopySourceFiles Include="$(OutputPath)*.*"/>
+      <CopyLinuxRuntimeFiles Include="$(LinuxRuntimeDirectory)\**\*.*"/>
     </ItemGroup> 
     <MakeDir Directories="$(ZipSourcePath)"/>
     <MakeDir Directories="$(TempPath)"/>
+    <MakeDir Directories="$(TempPath)\runtime" Condition="'$(WithLinuxRuntime)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
     <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)" />
+    <Copy SourceFiles="@(CopyLinuxRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)" Condition="'$(WithLinuxRuntime)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
     <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(OutputDirectory)\$(TargetFramework)_$(AssemblyName).zip" Overwrite="true" />
     <WriteLinesToFile File="$(OutputDirectory)\$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true" />
     <RemoveDir Directories="$(TempDirectoryFramework)" Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'"/>
