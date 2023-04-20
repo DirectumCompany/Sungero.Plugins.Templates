@@ -1,0 +1,3 @@
+Папка .nuget нужна для отладки наших NuGet-пакетов. Пушить в репозиторий Sungero эти пакеты не нужно, а нужно в наш корпоративный NuGet.
+
+- This file purpose is to keep an empty folder, because GIT doesn't work with folders.

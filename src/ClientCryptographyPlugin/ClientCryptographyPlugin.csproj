@@ -1,13 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="ClientPlugin.props" />
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
     <RootNamespace>ClientCryptographyPlugin</RootNamespace>
     <AssemblyName>ClientCryptographyPlugin</AssemblyName>
-    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\plugins\cryptography_plugin\$(AssemblyName)\</OutputPath>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BuildLinuxPlugin)' != 'true'">
+    <TargetFramework>net452</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BuildLinuxPlugin)' == 'true'">
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>

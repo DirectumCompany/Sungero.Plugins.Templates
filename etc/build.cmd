@@ -1,1 +1,0 @@
-dotnet build ..\src\ClientCryptographyPlugin\ClientCryptographyPlugin.csproj -p:WithLinuxRuntime=true
