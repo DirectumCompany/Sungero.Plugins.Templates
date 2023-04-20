@@ -79,7 +79,6 @@
     </ItemGroup>
     <MakeDir Directories="$(ZipSourcePath)"/>
     <MakeDir Directories="$(TempPath)"/>
-    <MakeDir Directories="$(TempPath)\runtime" Condition="'$(WithLinuxRuntime)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
     <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
     <Copy SourceFiles="@(CopyLinuxRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)" Condition="'$(BuildLinuxPlugin)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
     <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
