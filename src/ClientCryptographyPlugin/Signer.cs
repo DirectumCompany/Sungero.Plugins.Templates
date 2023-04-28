@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
@@ -14,18 +13,19 @@ namespace Library
     /// <summary>
     /// Подписать данные.
     /// </summary>
-    /// <param name="requestString">Запрос.</param>
-    public static string SignData(string requestString)
+    /// <param name="pluginName">Имя плагина.</param>
+    /// <param name="certificateThumbprint">Отпечаток сертификата.</param>
+    /// <param name="signingData">Подписываемые данные закодированные в формате base64.</param>
+    /// <param name="userLanguage">Язык интерфейса пользователя.</param>
+    /// <param name="result">Подписанные данные закодированные в формате base64, либо текст сообщения об ошибке.</param>
+    public static int SignData(string pluginName, string certificateThumbprint, string signingData, string userLanguage, out string result)
     {
-      // Получить информацию о подписании из запроса.
-      var requestObj = JsonConvert.DeserializeObject<Request>(requestString);
       // Пример использования класса логирования.
-      Logger.Info(string.Format("Start signing. PluginName: {0} CertificateID: {1}.", requestObj.PluginName, requestObj.CertificateID));
-      var data = Convert.FromBase64String(requestObj.Attributes);
-      var thumbprint = requestObj.CertificateID;
+      Logger.Info(string.Format("Start signing. PluginName: {0} CertificateThumbprint: {1}.", pluginName, certificateThumbprint));
+      var data = Convert.FromBase64String(signingData);
 
       // Можно получить сертификат из реестра.
-      var certificate = GetCertificateFromStore(thumbprint);
+      var certificate = GetCertificateFromStore(certificateThumbprint);
 
       // Пример использования диалога пин-кода (может потребоваться для доступа к токену).
       // string pinCode = PinCodeDialog.Get();
@@ -37,7 +37,8 @@ namespace Library
       // var certificate = new X509Certificate2(privateKeyFilePath, privateKeyFilePassword);
 
       // Формирование ответа для клиента.
-      var response = new Response();
+      result = null;
+      var resultCode = (int)SignDataResult.Success;
 
       // Пример подписания с использованием SHA512 и RSA.
       var cryptoServiceProvider = (RSACryptoServiceProvider)certificate.PrivateKey;
@@ -47,21 +48,20 @@ namespace Library
         {
           const string SHA512AlgorithmIdentifier = "2.16.840.1.101.3.4.2.3";
           var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), SHA512AlgorithmIdentifier);
-          response.Result = CertificateLoadPrivateKeyResult.Success;
-          response.SetSignature(signedHash);
+
+          result = Convert.ToBase64String(signedHash);
         }
         catch (Exception ex)
         {
           // Пример использования локализации веб-агента. Полный список стандартных ошибок при подписании находится в файле LocalizerStandardErrors.md.
-          // string error = Localizer.L("CRYPTOGRAPHY.ERR_SIGN");
-
+          result = Localizer.L("CRYPTOGRAPHY.ERR_SIGN");
+          resultCode = (int)SignDataResult.UnknownError;
           Logger.Error(string.Format("Signing failed. Reason: {0}.", ex.Message));
-          response.Result = CertificateLoadPrivateKeyResult.UnknownError;
         }
       }
 
-      Logger.Info("Signing successfully finished.");
-      return JsonConvert.SerializeObject(response, Formatting.None);
+      Logger.Info("Signing finished.");
+      return resultCode;
     }
 
     /// <summary>

@@ -1,16 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="ClientPlugin.props" />
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
     <RootNamespace>ClientCryptographyPlugin</RootNamespace>
     <AssemblyName>ClientCryptographyPlugin</AssemblyName>
-    <TargetFramework>net45</TargetFramework>
     <CodeContractsAssemblyMode>1</CodeContractsAssemblyMode>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <OutputPath>bin\$(Configuration)\plugins\cryptography_plugin\$(AssemblyName)\</OutputPath>
-    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(BuildLinuxPlugin)' != 'true'">
+    <TargetFramework>net45</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(BuildLinuxPlugin)' == 'true'">
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
   <Import Project="ClientPlugin.targets" />
 </Project>

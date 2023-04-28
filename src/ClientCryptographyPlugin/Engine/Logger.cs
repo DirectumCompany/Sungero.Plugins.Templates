@@ -25,14 +25,14 @@
     /// <summary>
     /// Делегат внешнего метода логирования.
     /// </summary>
-    public delegate void LoggerDelegate(LogLevel level, string message);
+    public delegate void LoggerDelegate(int level, string message);
 
     /// <summary>
     /// Логировать сообщение.
     /// </summary>
     /// <param name="level">Уровень логирования.</param>
     /// <param name="message">Сообщение.</param>
-    private static void Log(LogLevel level, string message) => loggerDelegate.DynamicInvoke(level, message);
+    private static void Log(LogLevel level, string message) => loggerDelegate.DynamicInvoke((int)level, message);
 
     /// <summary>
     /// Установить метод логирования.

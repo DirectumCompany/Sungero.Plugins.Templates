@@ -182,6 +182,7 @@ BundleArtifacts/
 
 # Others
 ClientBin/
+redist/
 [Ss]tyle[Cc]op.*
 ~$*
 *~
