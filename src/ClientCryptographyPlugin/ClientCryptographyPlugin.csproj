@@ -10,10 +10,10 @@
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(BuildLinuxPlugin)' != 'true'">
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net45</TargetFramework>
   </PropertyGroup>
   <PropertyGroup Condition="'$(BuildLinuxPlugin)' == 'true'">
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Import Project="ClientPlugin.targets" />
