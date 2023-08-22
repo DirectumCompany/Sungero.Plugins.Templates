@@ -14,5 +14,8 @@
 
     <!-- Признак того, что нужно собирать linux версию плагина. -->
     <BuildLinuxPlugin>false</BuildLinuxPlugin>
+
+    <!-- Признак того, что нужно собирать macos версию плагина. -->
+    <BuildMacOsPlugin>false</BuildMacOsPlugin>
   </PropertyGroup>
 </Project>

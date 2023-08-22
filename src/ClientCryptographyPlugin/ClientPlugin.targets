@@ -3,18 +3,67 @@
     Ниже код формирования manifest-файлов и пакетов с плагином.
     ВАЖНО. Следующий код не рекомендуется изменять.
   -->
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PackWindowsPlugin" Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PropertyGroup>
       <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
-      <LinuxRuntimeDirectory>$(ProjectDir)\..\..\redist\linux-dotnet-runtime\</LinuxRuntimeDirectory>
-      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' != 'true'">
+      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_win.zip</ZipDestinationFile>
+      <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
+    </PropertyGroup>
+    <ItemGroup>
+      <CopySourceFiles Include="$(OutputPath)*.*"/>
+    </ItemGroup>
+    <MakeDir Directories="$(ZipSourcePath)"/>
+    <MakeDir Directories="$(TempPath)"/>
+    <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+  </Target>
+  <Target Name="PackLinuxPlugin" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard' And '$(BuildLinuxPlugin)' == 'true'">
+    <PropertyGroup>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
+      <DotNetRuntimeDirectory>$(ProjectDir)\..\..\redist\linux-dotnet-runtime\</DotNetRuntimeDirectory>
+      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_linux.zip</ZipDestinationFile>
+      <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
+    </PropertyGroup>
+    <ItemGroup>
+      <CopySourceFiles Include="$(OutputPath)*.*"/>
+      <CopyDotNetRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
+    </ItemGroup>
+    <MakeDir Directories="$(ZipSourcePath)"/>
+    <MakeDir Directories="$(TempPath)"/>
+    <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
+    <Copy SourceFiles="@(CopyDotNetRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+  </Target>
+  <Target Name="PackMacOsPlugin" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard' And '$(BuildMacOsPlugin)' == 'true'">
+    <PropertyGroup>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
+      <DotNetRuntimeDirectory>$(ProjectDir)\..\..\redist\macos-dotnet-runtime\</DotNetRuntimeDirectory>
+      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_mac.zip</ZipDestinationFile>
+      <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
+    </PropertyGroup>
+    <ItemGroup>
+      <CopySourceFiles Include="$(OutputPath)*.*"/>
+      <CopyDotNetRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
+    </ItemGroup>
+    <MakeDir Directories="$(ZipSourcePath)"/>
+    <MakeDir Directories="$(TempPath)"/>
+    <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
+    <Copy SourceFiles="@(CopyDotNetRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+  </Target>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <PropertyGroup>
+      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' != 'true' And '$(BuildMacOsPlugin)' != 'true'">
 {
   "Windows": {
     "{$(PluginId.ToUpper())}": "$(TargetFileName)"
   }
 }
       </PluginManifestContent>
-      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' == 'true'">
+      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' == 'true' And '$(BuildMacOsPlugin)' != 'true'">
 {
   "Windows": {
     "{$(PluginId.ToUpper())}": "$(TargetFileName)"
@@ -24,7 +73,30 @@
   }
 }
       </PluginManifestContent>
-      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' != 'true'">
+      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' != 'true' And '$(BuildMacOsPlugin)' == 'true'">
+{
+  "Windows": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  },
+  "Darwin": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  }
+}
+      </PluginManifestContent>
+      <PluginManifestContent Condition="'$(BuildLinuxPlugin)' == 'true' And '$(BuildMacOsPlugin)' == 'true'">
+{
+  "Windows": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  },
+  "Linux": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  },
+  "Darwin": {
+    "{$(PluginId.ToUpper())}": "$(TargetFileName)"
+  }
+}
+      </PluginManifestContent>
+      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' != 'true' And '$(BuildMacOsPlugin)' != 'true'">
 [{
   "name": "$(AssemblyName)",
   "platform": "win32",
@@ -35,7 +107,7 @@
   "dependencies": ["cryptographyplugin"]
 }]
       </PluginPackageManifestContent>
-      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' == 'true'">
+      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' == 'true' And '$(BuildMacOsPlugin)' != 'true'">
 [{
   "name": "$(AssemblyName)",
   "platform": "win32",
@@ -55,35 +127,64 @@
   "dependencies": ["cryptographyplugin"]
 }]
       </PluginPackageManifestContent>
+      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' != 'true' And '$(BuildMacOsPlugin)' == 'true'">
+[{
+  "name": "$(AssemblyName)",
+  "platform": "win32",
+  "file": "plugins/$(AssemblyName)_win.zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+},
+{
+  "name": "$(AssemblyName)",
+  "platform": "mac64",
+  "file": "plugins/$(AssemblyName)_mac.zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+}]
+      </PluginPackageManifestContent>
+      <PluginPackageManifestContent Condition="'$(BuildLinuxPlugin)' == 'true' And '$(BuildMacOsPlugin)' == 'true'">
+[{
+  "name": "$(AssemblyName)",
+  "platform": "win32",
+  "file": "plugins/$(AssemblyName)_win.zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+},
+{
+  "name": "$(AssemblyName)",
+  "platform": "linux64",
+  "file": "plugins/$(AssemblyName)_linux.zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+},
+{
+  "name": "$(AssemblyName)",
+  "platform": "mac64",
+  "file": "plugins/$(AssemblyName)_mac.zip",
+  "preloaded": false,
+  "version": "$(PluginVersion)",
+  "guid": "$(PluginId.ToUpper())",
+  "dependencies": ["cryptographyplugin"]
+}]
+      </PluginPackageManifestContent>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
+      <TempPath>$(OutputDirectory)\tmp</TempPath>
     </PropertyGroup>
     <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginManifestContent)" Overwrite="true"/>
     <MakeDir Directories="$(OutputDirectory)"/>
-    <PropertyGroup>
-      <TempDirectoryFramework>$(OutputDirectory)\tmp_frm\</TempDirectoryFramework>
-      <TempDirectoryStandard>$(OutputDirectory)\tmp_std\</TempDirectoryStandard>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-      <TempPath>$(TempDirectoryFramework)$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
-      <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_win.zip</ZipDestinationFile>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'">
-      <TempPath>$(TempDirectoryStandard)$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
-      <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_linux.zip</ZipDestinationFile>
-    </PropertyGroup>
-    <PropertyGroup>
-      <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
-    </PropertyGroup>
-    <ItemGroup>
-      <CopySourceFiles Include="$(OutputPath)*.*"/>
-      <CopyLinuxRuntimeFiles Include="$(LinuxRuntimeDirectory)\**\*.*"/>
-    </ItemGroup>
-    <MakeDir Directories="$(ZipSourcePath)"/>
-    <MakeDir Directories="$(TempPath)"/>
-    <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
-    <Copy SourceFiles="@(CopyLinuxRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)" Condition="'$(BuildLinuxPlugin)' == 'true' And '$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
-    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+    <CallTarget Targets="PackWindowsPlugin"/>
+    <CallTarget Targets="PackLinuxPlugin"/>
+    <CallTarget Targets="PackMacOsPlugin"/>
     <WriteLinesToFile File="$(OutputDirectory)\$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true"/>
-    <RemoveDir Directories="$(TempDirectoryFramework)" Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'"/>
-    <RemoveDir Directories="$(TempDirectoryStandard)" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard'"/>
+    <RemoveDir Directories="$(TempPath)"/>
   </Target>
 </Project>
