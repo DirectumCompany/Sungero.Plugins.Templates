@@ -6,7 +6,7 @@
   <Target Name="PackWindowsPlugin" Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PropertyGroup>
       <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
-      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <TempPath>$(OutputDirectory)\tmp\win\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
       <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_win.zip</ZipDestinationFile>
       <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
     </PropertyGroup>
@@ -22,37 +22,37 @@
     <PropertyGroup>
       <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
       <DotNetRuntimeDirectory>$(ProjectDir)\..\..\redist\linux-dotnet-runtime\</DotNetRuntimeDirectory>
-      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <TempPath>$(OutputDirectory)\tmp\linux\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
       <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_linux.zip</ZipDestinationFile>
       <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
     </PropertyGroup>
     <ItemGroup>
       <CopySourceFiles Include="$(OutputPath)*.*"/>
-      <CopyDotNetRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
+      <CopyDotNetLinuxRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
     </ItemGroup>
     <MakeDir Directories="$(ZipSourcePath)"/>
     <MakeDir Directories="$(TempPath)"/>
     <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
-    <Copy SourceFiles="@(CopyDotNetRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
-    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+    <Copy SourceFiles="@(CopyDotNetLinuxRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>	
   </Target>
   <Target Name="PackMacOsPlugin" Condition="'$(TargetFramework.TrimEnd(`0123456789.`))' == 'netstandard' And '$(BuildMacOsPlugin)' == 'true'">
     <PropertyGroup>
       <OutputDirectory>$(ProjectDir)\..\..\out\Client\</OutputDirectory>
       <DotNetRuntimeDirectory>$(ProjectDir)\..\..\redist\macos-dotnet-runtime\</DotNetRuntimeDirectory>
-      <TempPath>$(OutputDirectory)\tmp\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
+      <TempPath>$(OutputDirectory)\tmp\mac\$(OutputPath.Replace($(TargetFramework), &quot;&quot;))</TempPath>
       <ZipDestinationFile>$(OutputDirectory)\$(AssemblyName)_mac.zip</ZipDestinationFile>
       <ZipSourcePath>$(TempPath)..\..\..\</ZipSourcePath>
     </PropertyGroup>
     <ItemGroup>
       <CopySourceFiles Include="$(OutputPath)*.*"/>
-      <CopyDotNetRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
+      <CopyDotNetMacRuntimeFiles Include="$(DotNetRuntimeDirectory)\**\*.*"/>
     </ItemGroup>
     <MakeDir Directories="$(ZipSourcePath)"/>
     <MakeDir Directories="$(TempPath)"/>
     <Copy SourceFiles="@(CopySourceFiles)" DestinationFolder="$(TempPath)"/>
-    <Copy SourceFiles="@(CopyDotNetRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
-    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>
+    <Copy SourceFiles="@(CopyDotNetMacRuntimeFiles)" DestinationFolder="$(TempPath)\runtime\%(RecursiveDir)"/>
+    <ZipDirectory SourceDirectory="$(ZipSourcePath)" DestinationFile="$(ZipDestinationFile)" Overwrite="true"/>	
   </Target>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <PropertyGroup>
@@ -181,9 +181,9 @@
     </PropertyGroup>
     <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginManifestContent)" Overwrite="true"/>
     <MakeDir Directories="$(OutputDirectory)"/>
-    <CallTarget Targets="PackWindowsPlugin"/>
-    <CallTarget Targets="PackLinuxPlugin"/>
-    <CallTarget Targets="PackMacOsPlugin"/>
+    <CallTarget Targets="PackWindowsPlugin"/>	  
+    <CallTarget Targets="PackLinuxPlugin"/>	  
+    <CallTarget Targets="PackMacOsPlugin"/>	  
     <WriteLinesToFile File="$(OutputDirectory)\$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true"/>
     <RemoveDir Directories="$(TempPath)"/>
   </Target>
