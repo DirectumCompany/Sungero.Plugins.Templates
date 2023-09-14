@@ -9,7 +9,7 @@
   * Microsoft Windows 7 и выше
   * Microsoft Windows Server 2008 R2 и выше.
   * x64 версии Linux, на которых можно запустить .NET Core версии 2.0 и выше (поддержка добавлена в Sungero 4.7).
-  * x64 и Arm64 версии MacOS, на которых можно запустить .NET Core версии 2.0 и выше (поддержка добавлена в Sungero 4.8). 
+  * x64 версии MacOS, на которых можно запустить .NET Core версии 2.0 и выше (поддержка добавлена в Sungero 4.8). 
 
 
 Совместимость с версией платформы Sungero:
@@ -40,7 +40,7 @@
 
       * В файле `ClientPlugin.props` клиентского плагина измените значение переменной `BuildLinuxPlugin` c `false` на `true` для Linux. Для MacOS, соответсвенно, измените значение переменной 'BuildMacOsPlugin' c 'false' на 'true'. Возможна одновременная сборка пакетов для обеих целевых ОС. Для этого следует установить оба значения в 'true'.
 
-      * Скачайте с [сайта Microsoft](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) актуальный пакет бинарных файлов `.NET Runtime` для целевой платформы. Целевыми платформами могут быть `Linux x64` и/или 'MacOS x64/Arm64'. Пример названия файла для Linux `dotnet-runtime-6.0.16-linux-x64.tar.gz`.  Для MacОS, в зависимости от архитектуры ЦПУ, файл может называться либо `dotnet-runtime-6.0.16-osx-x64.tar.gz', либо 'dotnet-runtime-6.0.16-osx-arm64.tar.gz'.
+      * Скачайте с [сайта Microsoft](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) актуальный пакет бинарных файлов `.NET Runtime` для целевой платформы. Целевыми платформами могут быть `Linux x64` и/или 'MacOS x64'. Пример названия файла для Linux `dotnet-runtime-6.0.16-linux-x64.tar.gz`.  Для MacОS, соответственно, файл может называться `dotnet-runtime-6.0.16-osx-x64.tar.gz'.
 
         *Если `.NET Runtime` версии 6.x не поддерживается целевой платформой, то допустимо использование другой версии (2.0 и выше)*.
 
