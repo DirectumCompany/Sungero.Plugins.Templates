@@ -181,9 +181,9 @@
     </PropertyGroup>
     <WriteLinesToFile File="$(OutputPath)\manifest.json" Lines="$(PluginManifestContent)" Overwrite="true"/>
     <MakeDir Directories="$(OutputDirectory)"/>
-    <CallTarget Targets="PackWindowsPlugin"/>	  
-    <CallTarget Targets="PackLinuxPlugin"/>	  
-    <CallTarget Targets="PackMacOsPlugin"/>	  
+    <CallTarget Targets="PackWindowsPlugin"/>
+    <CallTarget Targets="PackLinuxPlugin"/>
+    <CallTarget Targets="PackMacOsPlugin"/>
     <WriteLinesToFile File="$(OutputDirectory)\$(AssemblyName).json" Lines="$(PluginPackageManifestContent)" Overwrite="true"/>
     <RemoveDir Directories="$(TempPath)"/>
   </Target>
