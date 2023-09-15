@@ -13,11 +13,17 @@
 }
       </PluginPackageContent>
     </PropertyGroup>
-	<PropertyGroup>
-	  <OutputDirectory>$(ProjectDir)\..\..\out\Server\</OutputDirectory>
-	</PropertyGroup>
-	<WriteLinesToFile File="$(OutputPath)\_PackageInfo.json" Lines="$(PluginPackageContent)" Overwrite="true" />
+    <PropertyGroup>
+      <OutputDirectory>$(ProjectDir)\..\..\out\Server\</OutputDirectory>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(OutputPath)\_PackageInfo.json" Lines="$(PluginPackageContent)" Overwrite="true" />
     <MakeDir Directories="$(OutputDirectory)"/>
+    <ItemGroup>
+        <SystemFilesToDelete Include="$(OutputPath)\System.*"/>
+        <SungeroFilesToDelete Include="$(OutputPath)\Sungero.*"/>
+    </ItemGroup>
+    <Delete Files="@(SystemFilesToDelete)" />
+    <Delete Files="@(SungeroFilesToDelete)" />
     <ZipDirectory SourceDirectory="$(OutputPath)" DestinationFile="$(OutputDirectory)$(AssemblyName).zip" Overwrite="true" />
   </Target>
 </Project>
