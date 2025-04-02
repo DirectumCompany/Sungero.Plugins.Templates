@@ -12,11 +12,19 @@ namespace Library
   /// </summary>
   public static class Signer
   {
-    
     /// <summary>
     /// Параметры сертификата в формате json.
     /// </summary>
     public static string certificateParameters = string.Empty;
+    
+    /// <summary>
+    /// Установить параметры сертификата.
+    /// </summary>
+    /// <param name="parameters">Параметры сертификата в json.</param>
+    public static void SetCertificateParameters(string parameters)
+    {
+      certificateParameters = parameters;
+    }
     
     /// <summary>
     /// Подписать данные.
@@ -81,7 +89,7 @@ namespace Library
     }
 
     /// <summary>
-    /// Подписать данные.
+    /// Подписать данные (Данная сигнатура метода используется при аутентификации по сертификату).
     /// </summary>
     /// <param name="pluginName">Имя плагина.</param>
     /// <param name="certificatesThumbprints">Коллекция отпечатков сертификатов.</param>
@@ -103,7 +111,7 @@ namespace Library
                   $"CertificatesProperties: {string.Join(",", certificatesProperties)}.");
 
       var data = Convert.FromBase64String(signingData);
-      var certificate = SelectCertificate(certificatesThumbprints);
+      var certificate = SelectCertificate(certificatesThumbprints, certificatesProperties);
       if (certificate == null)
       {
         result = string.Format(Localizer.L("CRYPTOGRAPHY.ERR_CERTIFICATE_NOT_FOUND"),
@@ -125,7 +133,12 @@ namespace Library
           const string SHA512AlgorithmIdentifier = "2.16.840.1.101.3.4.2.3";
           var signedHash = cryptoServiceProvider.SignHash(hasher.ComputeHash(data), SHA512AlgorithmIdentifier);
 
-          result = Convert.ToBase64String(signedHash);
+          var response = new SignDataResponse
+          {
+            CertificateThumbprint = certificate.Thumbprint,
+            SignedData = Convert.ToBase64String(signedHash)
+          };
+          result = JsonConvert.SerializeObject(response);
         }
         catch (Exception ex)
         {
@@ -155,7 +168,7 @@ namespace Library
       store.Close();
       return privateKeyCertificate;
     }
-    
+
     /// <summary>
     /// Выбрать подходящий сертификат.
     /// </summary>
@@ -163,29 +176,28 @@ namespace Library
     /// В данном случае выбирается первый подходящий.
     /// </remarks>
     /// <param name="certificatesThumbprints">Коллекция отпечатков сертификатов.</param>
+    /// <param name="certificatesProperties">Коллекция свойств сертификатов.</param>
     /// <returns>Сертификат.</returns>
-    private static X509Certificate2 SelectCertificate(string[] certificatesThumbprints)
+    private static X509Certificate2 SelectCertificate(string[] certificatesThumbprints, string[] certificatesProperties)
     {
-      foreach (var certificateThumbprint in certificatesThumbprints)
+      for (var i = 0; i < certificatesThumbprints.Length; i++)
       {
+        var certificateThumbprint = certificatesThumbprints[i];
         var certificate = GetCertificateFromStore(certificateThumbprint);
 
         if (certificate != null)
         {
+          Logger.Info($"Working with certificate {certificateThumbprint}");
+          // Пример работы с параметрами сертификата. Параметры передаются в формате json.
+          var currentCertificateParameters = JsonConvert.DeserializeObject<Dictionary<string, string>>(certificatesProperties[i]);
+          Logger.Info($"Listings certificate parameters:");
+          foreach (var item in currentCertificateParameters)
+            Logger.Info($"{item.Key}: {item.Value}");
           return certificate;
         }
       }
 
       return null;
-    }
-    
-    /// <summary>
-    /// Установить параметры сертификата.
-    /// </summary>
-    /// <param name="parameters">Параметры сертификата в json.</param>
-    public static void SetCertificateParameters(string parameters)
-    {
-      certificateParameters = parameters;
     }
   }
 }
