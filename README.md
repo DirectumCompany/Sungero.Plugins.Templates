@@ -61,9 +61,9 @@
       ```yaml
       PLUGINS:
         plugin:
-            -   '@id': '<ид_плагина>'
-                '@exampleSetting': 'Example value'
-                '@otherSetting': 'Other value'
+          - '@id': '<ид_плагина>'
+            '@exampleSetting': 'Example value'
+            '@otherSetting': 'Other value'
       ```
       Чтение настроек в плагине выполняется в методе `CryptographyPlugin.ApplySettings()`.
       Плагин облачного подписания также является серверным плагином, поэтому подключается и настраивается аналогично.
