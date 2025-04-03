@@ -19,6 +19,7 @@ namespace Library
     
     /// <summary>
     /// Установить параметры сертификата.
+    /// Метод поддерживается для Sungero 25.1 и выше, для более старых версий вызываться не будет.
     /// </summary>
     /// <param name="parameters">Параметры сертификата в json.</param>
     public static void SetCertificateParameters(string parameters)
@@ -89,7 +90,9 @@ namespace Library
     }
 
     /// <summary>
-    /// Подписать данные (Данная сигнатура метода используется при аутентификации по сертификату).
+    /// Подписать данные.
+    /// Данная сигнатура метода используется при аутентификации по сертификату.
+    /// Метод поддерживается для Sungero 25.1 и выше, для более старых версий вызываться не будет.
     /// </summary>
     /// <param name="pluginName">Имя плагина.</param>
     /// <param name="certificatesThumbprints">Коллекция отпечатков сертификатов.</param>
@@ -98,13 +101,8 @@ namespace Library
     /// <param name="userLanguage">Язык интерфейса пользователя.</param>
     /// <param name="result">Результат подписания в формате json, либо текст сообщения об ошибке.</param>
     /// <returns>Код возврата <see cref="Library.SignDataResult"/>.</returns>
-    public static int SignData(
-      string pluginName,
-      string[] certificatesThumbprints,
-      string signingData,
-      string[] certificatesProperties,
-      string userLanguage,
-      out string result)
+    public static int SignData(string pluginName, string[] certificatesThumbprints, string signingData,
+      string[] certificatesProperties, string userLanguage, out string result)
     {
       Logger.Info($"Start signing. PluginName: {pluginName}, " +
                   $"CertificatesThumbprints: {string.Join(",", certificatesThumbprints)}, " +
